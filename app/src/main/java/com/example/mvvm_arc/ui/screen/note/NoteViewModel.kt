@@ -64,6 +64,7 @@ class NoteViewModel @Inject constructor (
                             )
                         )
                     }
+                    sendEvent(UiEvent.NavigateBack)
                 }
             }
             is NoteEvent.TitleChanged -> {
@@ -72,6 +73,20 @@ class NoteViewModel @Inject constructor (
                         title = event.value
                     )
                 }
+            }
+
+            NoteEvent.DeleteNote -> {
+                val state = _state.value
+                viewModelScope.launch {
+                    repo.deleteNote(
+                        Note(
+                            id = state.id,
+                            title = state.title,
+                            description = state.description
+                        )
+                    )
+                }
+                sendEvent(UiEvent.NavigateBack)
             }
         }
     }

@@ -5,5 +5,6 @@ sealed interface NoteEvent{
     data class  DescriptionChanged(val value: String) : NoteEvent;
     object SaveNote : NoteEvent
     object NavigateBack : NoteEvent
+    object DeleteNote : NoteEvent
 }
 
